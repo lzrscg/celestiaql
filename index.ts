@@ -2,7 +2,7 @@ import History from "./history";
 
 const { MongoClient } = require("mongodb");
 // Connection URI
-const uri = "mongodb://172.20.80.1:27017/?maxPoolSize=20&w=majority";
+const uri = "mongodb://localhost:27017/?maxPoolSize=20&w=majority";
 // Create a new MongoClient
 const client = new MongoClient(uri);
 async function run() {
@@ -17,7 +17,7 @@ async function run() {
     const pfmCollection = client.db("celestiaql").collection("payForMessages");
     const history = new History(pfmCollection);
 
-    await history.syncFrom(450650);
+    await history.syncFrom(81830);
 
     console.log("Done");
   } finally {

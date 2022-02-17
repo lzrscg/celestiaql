@@ -1,5 +1,4 @@
 import NamespacedMerkelTree from "./nmt";
-import crypto from "crypto";
 import * as merkel from "./merkel";
 
 const SHARE_SIZE = 256;
@@ -36,7 +35,7 @@ export default function CreateCommitment(
 
   const subTreeRoots: Array<Uint8Array> = [];
   leafSets.forEach((set) => {
-    const tree = new NamespacedMerkelTree(crypto.createHash("sha256"));
+    const tree = new NamespacedMerkelTree();
     set.forEach((leaf) => {
       const nsLeaf = new Uint8Array([...namespace, ...leaf]);
       tree.Push(nsLeaf);

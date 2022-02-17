@@ -1,4 +1,4 @@
-import { Hash } from "crypto";
+import { createHash } from "crypto";
 import * as namespace from "./namespace";
 
 const LEAF_PREFIX = 0;
@@ -8,7 +8,6 @@ export default class Hasher {
   public precomputedMaxNs: namespace.ID;
 
   constructor(
-    public Hash: Hash,
     public NamespaceLen: namespace.IDSize,
     public ignoreMaxNs: boolean
   ) {
@@ -27,14 +26,14 @@ export default class Hasher {
 
   public EmptyRoot(): Uint8Array {
     const emptyNs = new Uint8Array(this.NamespaceLen);
-    const h = this.Hash.update(""); // empty string acts like an empty stream
+    const h = createHash("sha256").update(""); // empty string acts like an empty stream
     const digest = new Uint8Array([...emptyNs, ...emptyNs, ...h.digest()]);
 
     return digest;
   }
 
   public HashLeaf(leaf: Uint8Array): Uint8Array {
-    const h = this.Hash;
+    const h = createHash("sha256");
     const nID = leaf.slice(0, this.NamespaceLen);
     const res = [...nID, ...nID];
     const data = new Uint8Array([LEAF_PREFIX, ...leaf]);
@@ -43,8 +42,7 @@ export default class Hasher {
   }
 
   public HashNode(l: Uint8Array, r: Uint8Array) {
-    const h = this.Hash;
-
+    const h = createHash("sha256");
     const flagLen = 2 * this.NamespaceLen;
     const leftMinNs = l.slice(0, this.NamespaceLen);
     const leftMaxNs = l.slice(this.NamespaceLen, flagLen);

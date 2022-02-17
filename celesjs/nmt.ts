@@ -14,7 +14,7 @@ export default class NamespacedMerkelTree {
   public rawRoot: Uint8Array | null;
 
   // For simplicity's sake, I am not implementing custom options
-  constructor(h: Hash) {
+  constructor() {
     const opts = {
       InitialCapacity: 128,
       NamespaceIDSize: 8,
@@ -22,11 +22,7 @@ export default class NamespacedMerkelTree {
       NodeVisitor: noOp,
     };
 
-    this.treeHasher = new Hasher(
-      h,
-      opts.NamespaceIDSize,
-      opts.IgnoreMaxNamespace
-    );
+    this.treeHasher = new Hasher(opts.NamespaceIDSize, opts.IgnoreMaxNamespace);
     this.visit = opts.NodeVisitor;
     this.leaves = [];
     this.leafHashes = [];

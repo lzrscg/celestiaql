@@ -66,13 +66,20 @@ export default class Block {
 
   private _getCommitmentMap(): { [key: string]: namespacedData } {
     const commitmentMap: { [key: string]: namespacedData } = {};
-    this._msgs.forEach((msg) => {
+    this._msgs.forEach((msg, index) => {
       const rawNamespaceID = fromBase64(msg.NamespaceID);
       const rawData = fromBase64(msg.Data);
 
+      let commitment;
       // Get the commitment hash in bytes
-      const commitment = CreateCommitment(rawNamespaceID, rawData);
-
+      try {
+      commitment = CreateCommitment(rawNamespaceID, rawData);
+      } catch(e) {
+        console.log(e);
+        console.log(this._blockHeight);
+        console.log(index, {[msg.NamespaceID]: msg.Data});
+        process.exit();
+      }
       // Convert to hex string
       const commitmentStr = Buffer.from(commitment).toString("hex");
 
