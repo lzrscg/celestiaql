@@ -35,10 +35,7 @@ CelestiaQL does not store the same data that Juno does. Both can be run alongsid
 ## Status
 _In Development_
 
-Currently, it will start syncing blocks and successfully add messages to MongoDB. Unfortunately, there is a bug that prevents the history from fully syncing. GraphQL API coming soon.
-
-### Known bugs
-* **History syncing fails** - somewhere there is a block that breaks the sync process. This stems from the CelesJS implementation of the NMT.
+Currently, it will start syncing blocks and successfully add messages to MongoDB. GraphQL API coming soon.
 
 ### Features to add (in order of approx. priority)
 * Listen for new blocks
