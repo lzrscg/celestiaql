@@ -3,7 +3,7 @@ CelestiaQL's goal is to provide a powerful querying engine and developer-friendl
 
 ## How to run
 1. Install `celestia-appd`. [Instructions are here.](https://mzonder.notion.site/Celestia-Application-validator-node-Install-devnet-2-3a3087806d8b492ca937133c1fbca947)
-2. Step 1 might take a while. Once it is done catching up, start Celestia. Do this either one of two ways: start the service (following the above instructions) or run the command `celestia-appd start`.
+2. Step 1 might take a while. Once it is done catching up, start Celestia. Do this either one of two ways: start the service (following the above instructions) or run the command `celestia-appd start`. If you were previously catching up, it may already be running.
 3. Install and run [MongoDB](https://www.mongodb.com/try/download/community).
 4. Clone this Git repo `git clone https://github.com/lzrscg/celestiaql && cd celestiaql`
 5. Make sure you have `nodejs` and `npm` installed. If not, you can use the [official website](https://nodejs.org/en/download) or [nvm](https://github.com/nvm-sh/nvm).
@@ -12,7 +12,7 @@ CelestiaQL's goal is to provide a powerful querying engine and developer-friendl
 8. (optional) if you want to develop, install the [protobuf compiler](https://grpc.io/docs/protoc-installation).
 
 ## How this is different from Juno
-> [Juno](https://github.com/fissionlabsio/juno) is a Cosmos Hub blockchain data aggregator and exporter that provides the ability for developers and clients to query for indexed chain data. Celestia uses a forked versin of Juno by [Forbole](https://github.com/forbole).
+> [Juno](https://github.com/fissionlabsio/juno) is a Cosmos Hub blockchain data aggregator and exporter that provides the ability for developers and clients to query for indexed chain data. Celestia uses a forked version of Juno by [Forbole](https://github.com/forbole).
 
 Juno is great! However, CelestiaQL has a different goals and a different approach.
 
@@ -22,7 +22,7 @@ Juno previously used [MongoDB](https://www.mongodb.com), but now it exclusively 
 ### NodeJS
 There isn't a very good justification for this. In fact, this would have been easier in Go. I started developing this in Node because I am quicker at experimenting in it. Then, after going down the rabbit hole, I did too much in Node to want go back.
 
-Node does have one advantage over Go. In my opinion, there is better tooling for providing nice APIs for users.
+Node does have one advantage over Go. In my opinion, there is better tooling for providing nice APIs to users.
 
 ### CelesJS
 CelesJS (name inspired by [CosmJS](https://github.com/cosmos/cosmjs)) is a collection of JS classes and functions that help JavaScript projects work with Celestia. It is basically a reimplementation of parts of [celestia-app](https://github.com/celestiaorg/celestia-app) in pure JS as well as some [tendermint](https://github.com/tendermint/tendermint) data structures.
