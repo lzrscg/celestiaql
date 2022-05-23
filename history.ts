@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosStatic } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { Collection } from "mongodb";
 import http from "http";
 import Block from "./block";

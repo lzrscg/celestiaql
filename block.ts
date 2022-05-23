@@ -3,7 +3,7 @@ import { decodeTxRaw, Registry } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes } from "@cosmjs/stargate";
 import CreateCommitment from "./celesjs/message-share-commitment";
 import PayForMessage from "./pay-for-message";
-import { MalleatedTx, MsgPayForMessage } from "./proto/tx";
+import { MalleatedTx, MsgPayForMessage } from "./celesjs/proto/tx";
 
 type namespacedData = { NamespaceID: string; Data: string };
 
@@ -72,14 +72,8 @@ export default class Block {
 
       let commitment;
       // Get the commitment hash in bytes
-      try {
       commitment = CreateCommitment(rawNamespaceID, rawData);
-      } catch(e) {
-        console.log(e);
-        console.log(this._blockHeight);
-        console.log(index, {[msg.NamespaceID]: msg.Data});
-        process.exit();
-      }
+      
       // Convert to hex string
       const commitmentStr = Buffer.from(commitment).toString("hex");
 
