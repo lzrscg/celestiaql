@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "start": "ts-node index.ts",
+    "hasura:apply": "cd hasura && hasura metadata apply --admin-secret myadminsecretkey",
     "gen:sequelize": "sequelize-auto -o \"./models\" -d bdjuno -h localhost -u docker -p 5432 -x docker -e postgres",
     "gen:proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=esModuleInterop=true --ts_proto_out=. ./proto/tx.proto"
   },
@@ -11,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/mongodb": "^4.0.7",
+    "hasura-cli": "^2.6.1",
     "sequelize-auto": "^0.8.8",
     "ts-node": "^10.5.0",
     "ts-proto": "^1.105.1",
