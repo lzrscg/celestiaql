@@ -1,8 +1,10 @@
-import History from "./history";
+import Connection from "./connection";
 
 const { MongoClient } = require("mongodb");
+require("dotenv").config();
+
 // Connection URI
-const uri = "mongodb://localhost:27017/?maxPoolSize=20&w=majority";
+const uri = process.env.MONGO_URI;
 // Create a new MongoClient
 const client = new MongoClient(uri);
 async function run() {
@@ -14,11 +16,10 @@ async function run() {
     await client.db("admin").command({ ping: 1 });
     console.log("Connected successfully to database");
 
-    const pfmCollection = client.db("celestiaql").collection("payForMessages");
-    const history = new History(pfmCollection);
+    const db = client.db("celestiaql");
+    const history = new Connection(db);
 
-    await history.syncFrom(81830);
-
+    await history.sync();
     console.log("Done");
   } finally {
     // Ensures that the client will close when you finish/error
