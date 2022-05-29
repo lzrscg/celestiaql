@@ -68,10 +68,23 @@ class Connection {
         const txResult = await this.getTx("0x" + hash);
         await this.saveTx(txResult);
       } catch {
-        const hash = createHash("sha256").update(rawTx).digest("hex");
-        console.log(`Syncing tx ${hash}`);
-        const txResult = await this.getTx("0x" + hash);
-        await this.saveTx(txResult);
+        let tries = 0;
+        const threeTries = async () => { 
+          const hash = createHash("sha256").update(rawTx).digest("hex");
+          console.log(`Syncing tx ${hash}${tries > 0 ? ` (try ${tries+1})` : ""}`);
+          if (tries < 3) {
+            try {
+              const txResult = await this.getTx("0x" + hash);
+              await this.saveTx(txResult);
+            } catch {
+              tries++;
+              await setTimeout(threeTries, 30000);
+            }
+          } else {
+            this._db.collection('reties').insertOne({type: 'tx', hash, height: blockHeight, rawTx})
+          }
+        }
+        await threeTries();
       }
     }
   }
