@@ -13,6 +13,14 @@ class Connection {
       // tendermint can't handle many new http connections
       httpAgent: new http.Agent({ keepAlive: true }),
     });
+
+    this._db.collection("blocks").createIndex({ "block.header.height": 1 }, { unique: true });
+    this._db.collection("blocks").createIndex({ "_height": 1 }, { unique: true });
+    this._db.collection("blocks").createIndex({ "block_id.hash": 1 }, { unique: true })
+    this._db.collection("txs").createIndex({ "hash": 1 }, { unique: true });
+    this._db.collection("txs").createIndex({ "height": 1, "index": 1 }, { unique: true });
+    this._db.collection("txs").createIndex({ "height": 1 });
+    this._db.collection("txs").createIndex({ "_height": 1 });
   }
 
   private _axiosInstance: AxiosInstance;
