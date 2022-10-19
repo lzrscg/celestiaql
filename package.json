@@ -20,6 +20,8 @@
     "@cosmjs/stargate": "^0.27.1",
     "axios": "^0.26.0",
     "dotenv": "^16.0.1",
-    "mongodb": "^4.3.1"
+    "mongodb": "^4.3.1",
+    "@aws-sdk/client-dynamodb": "^3.188.0",
+    "@aws-sdk/client-s3": "^3.188.0"
   }
 }
